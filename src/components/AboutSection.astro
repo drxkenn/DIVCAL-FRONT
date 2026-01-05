@@ -1,0 +1,141 @@
+---
+// src/components/About/AboutSection.astro
+import AboutImage from "./AboutImage.astro";
+import AboutText from "./AboutText.astro";
+---
+
+<section id="nosotros" class="relative py-20 md:py-28">
+    <!-- Fondo con gradiente inline -->
+    <div
+        class="absolute inset-0 -z-10"
+        style="background: linear-gradient(135deg, #e7e8ed 0%, #ffffff 30%, #e0f2fe 70%, #bae6fd 100%);"
+    >
+    </div>
+
+    <!-- Patrón decorativo -->
+    <div
+        class="absolute inset-0 -z-10 opacity-[0.03]"
+        style="background-image: radial-gradient(circle at 2px 2px, #0284c7 1px, transparent 0); background-size: 40px 40px;"
+    >
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center"
+        >
+            <!-- Imagen con borde personalizado -->
+            <div class="relative group">
+                <div
+                    class="absolute -inset-4 rounded-3xl opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-30"
+                    style="background: linear-gradient(90deg, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%);"
+                >
+                </div>
+
+                <img
+                    src="/src/assets/img/NosotrosImagen.jpg"
+                    alt="Equipo DIVCAL"
+                    class="relative rounded-2xl shadow-2xl w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+                />
+            </div>
+
+            <!-- Contenido de texto -->
+            <div class="space-y-8">
+                <!-- Título con acento de color -->
+                <div>
+                    <div class="mb-8 md:mb-12">
+                        <!-- Línea decorativa más grande -->
+                        <div class="inline-flex items-center gap-4 mb-4">
+                            <div
+                                class="w-16 md:w-24 h-1.5 rounded-full"
+                                style="background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 100%);"
+                            >
+                            </div>
+
+                            <!-- Texto "Quiénes Somos" más grande y destacado -->
+                            <span
+                                class="font-bold uppercase tracking-widest text-lg md:text-xl lg:text-2xl"
+                                style="color: #0284c7; letter-spacing: 0.2em;"
+                            >
+                                Quiénes Somos
+                            </span>
+
+                            <div
+                                class="w-16 md:w-24 h-1.5 rounded-full"
+                                style="background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 100%);"
+                            >
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2
+                        class="text-4xl md:text-5xl font-bold mb-6"
+                        style="color: #0c4a6e;"
+                    >
+                        Conoce <span style="color: #0ea5e9;">DIVCAL</span>
+                    </h2>
+                </div>
+
+                <!-- Párrafos -->
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed" style="color: #4b5563;">
+                        En <span class="font-semibold" style="color: #0369a1;"
+                            >DIVCAL PE</span
+                        > nos especializamos en soluciones <span
+                            class="font-medium"
+                            style="color: #1f2937;"
+                            >BPO de Contact Center Omnicanal</span
+                        >...
+                    </p>
+
+                    <p class="text-lg leading-relaxed" style="color: #4b5563;">
+                        Trabajamos mano a mano con empresas de diversos
+                        sectores...
+                    </p>
+                </div>
+
+                <!-- Cita destacada -->
+                <div class="relative mt-10">
+                    <div
+                        class="absolute -top-5 left-0 w-10 h-10 flex items-center justify-center"
+                    >
+                        <svg
+                            class="w1ull h-full"
+                            style="color: #7dd3fc;"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+                            ></path>
+                        </svg>
+                    </div>
+
+                    <blockquote
+                        class="pl-12 pt-2 text-xl font-medium italic"
+                        style="color: #075985;"
+                    >
+                        "Transformamos desafíos operativos en ventajas
+                        competitivas sostenibles"
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Animaciones personalizadas */
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    .group:hover .absolute.-inset-4 {
+        animation: float 3s ease-in-out infinite;
+    }
+</style>

@@ -2,6 +2,8 @@
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import AboutSection from '../components/AboutSection.astro';
+import { WavyBackground } from '../components/WavyBackground';
 ---
 
 <Layout title="Inicio - Divcal">
@@ -29,7 +31,8 @@ import Navbar from '../components/Navbar.astro';
       </div>
 
     </section>
-
+	<AboutSection/>
+	
     <section id="nosotros" class="py-24 bg-white">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold text-gray-800 mb-8">Sobre Nosotros</h2>
