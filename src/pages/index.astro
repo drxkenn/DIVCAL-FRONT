@@ -1,11 +1,54 @@
 ---
-import Welcome from '../components/Welcome.astro';
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navbar from '../components/Navbar.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Inicio - Divcal">
+  
+  <Navbar />
+
+  <main>
+    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-gray-900">
+      
+      <div class="absolute inset-0 z-0">
+         <img 
+           src="/src/assets/img/empresa-img.jpg" 
+           alt="Fondo de presentación" 
+           class="w-full h-full object-cover opacity-60"
+         />
+         </div>
+
+      <div class="relative z-10 text-center px-4">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+          DIVCAL <br /> <span class="text-blue-400">SOLUCIONES BPO</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
+          Optimizamos tus procesos para que tú te enfoques en crecer.
+        </p>
+      </div>
+
+    </section>
+
+    <section id="nosotros" class="py-24 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Sobre Nosotros</h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-6">
+          Aquí irá el resto de la página, es un demo para probar mi navbar xD, aquí van añadiendo sus componentes y lo demás q indiquen.
+        </p>
+        <div class="h-64 bg-gray-200 rounded-lg shadow-inner"></div> </div>
+    </section>
+
+    <section id="servicios" class="py-24 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Nuestros Servicios</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 1</div>
+          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 2</div>
+          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 3</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </Layout>
