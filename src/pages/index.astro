@@ -6,6 +6,8 @@ import AboutSection from '../components/AboutSection.astro';
 import Services from '../components/Services.astro';
 import Contact from '../components/Contact.astro';
 import { WavyBackground } from '../components/WavyBackground';
+import fondoPoster from '../assets/img/divcal-fondo.jpeg';
+import Why from '../components/Why.astro'
 ---
 
 <Layout title="Inicio - Divcal">
@@ -16,28 +18,51 @@ import { WavyBackground } from '../components/WavyBackground';
     <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-gray-900">
       
       <div class="absolute inset-0 z-0">
-         <img 
-           src="/src/assets/img/empresa-img.jpg" 
-           alt="Fondo de presentación" 
-           class="w-full h-full object-cover opacity-60"
-         />
-         </div>
-
-      <div class="relative z-10 text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-          DIVCAL <br /> <span class="text-blue-400">SOLUCIONES BPO</span>
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
-          Optimizamos tus procesos para que tú te enfoques en crecer.
-        </p>
+         <video
+           class="w-full h-full object-cover"
+           autoplay
+           muted
+           loop
+           playsinline
+           poster={fondoPoster.src} 
+         >
+           <source src="/video/presentacion.mp4" type="video/mp4" />
+           Tu navegador no soporta videos HTML5.
+         </video>
       </div>
 
+      <div class="relative z-10 text-center px-4">
+        </div>
     </section>
-	<AboutSection/>
+
+
+    <WavyBackground 
+        client:visible 
+        containerClassName="w-full py-20" 
+        id="nosotros"
+        backgroundFill="white"
+        waveOpacity={1}
+        colors={["#32b4c1", "#20294a", "#e7e8ed", "#0c4a6e"]}
+    >
+        <AboutSection />
+    </WavyBackground>
+
+    <section id="servicios" class="py-24 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Nuestros Servicios</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 1</div>
+          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 2</div>
+          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 3</div>
+        </div>
+      </div>
+    </section>
+
 	
     <Services />
     
     <Contact />
+	<Why></Why>
 
   </main>
 </Layout>
