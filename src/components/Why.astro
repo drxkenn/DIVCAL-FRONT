@@ -1,0 +1,288 @@
+---
+import img1 from "../assets/img/why1.png";
+import img2 from "../assets/img/why2.png";
+import img3 from "../assets/img/why3.png";
+import img4 from "../assets/img/why4.png";
+import img5 from "../assets/img/why5.png";
+import img6 from "../assets/img/why6.png";
+
+const slides = [
+	{
+		titulo_card: "ENFOQUE BPO INTEGRAL",
+		titulo_izquierda: "130",
+		texto_izquierda: "Gestión de consultas, reclamos y seguimiento.",
+		subtitulo_izquierda: "Más de 350",
+		subtexto_izquierda: "garantizando una atención oportuna y de calidad.",
+		imagen: img1,
+	},
+	{
+		titulo_card: "SOLUCIONES ADAPTADAS",
+		titulo_izquierda: "Personalización",
+		texto_izquierda: "Servicios diseñados a la medida de cada cliente.",
+		subtitulo_izquierda: "Implementación ágil",
+		subtexto_izquierda: "según objetivos y necesidades del negocio.",
+		imagen: img2,
+	},
+	{
+		titulo_card: "EQUIPO CAPACITADO",
+		titulo_izquierda: "Talento",
+		texto_izquierda: "Personal entrenado y supervisado constantemente.",
+		subtitulo_izquierda: "Gestión operativa",
+		subtexto_izquierda: "con estándares y buenas prácticas.",
+		imagen: img3,
+	},
+	{
+		titulo_card: "ATENCIÓN OMNICANAL",
+		titulo_izquierda: "Canales",
+		texto_izquierda: "Atención personalizada en múltiples canales.",
+		subtitulo_izquierda: "Comunicación fluida",
+		subtexto_izquierda: "para una experiencia consistente.",
+		imagen: img4,
+	},
+	{
+		titulo_card: "CONTROL Y REPORTES",
+		titulo_izquierda: "KPIs",
+		texto_izquierda: "Monitoreo continuo con reportes claros y accionables.",
+		subtitulo_izquierda: "Calidad asegurada",
+		subtexto_izquierda: "con medición y mejora continua.",
+		imagen: img5,
+	},
+	{
+		titulo_card: "ORIENTACIÓN A RESULTADOS",
+		titulo_izquierda: "Impacto",
+		texto_izquierda: "Enfoque en métricas, eficiencia y mejora continua.",
+		subtitulo_izquierda: "Optimización",
+		subtexto_izquierda: "de procesos y reducción de tiempos.",
+		imagen: img6,
+	},
+];
+---
+
+<section
+	id="porque"
+	style="
+		--bg:#e9eaef;
+		--text:#1f2747;
+		--muted:#3b4260;
+		--dot:rgba(31,39,71,.35);
+		--dotActive:#1f2747;
+		--panel:#ffffff;
+	"
+	class="py-16"
+>
+	<div class="max-w-300 mx-auto px-4">
+		<div class="why-grid">
+			<div class="why-left">
+				<h2 class="why-h2">
+					¿POR QUÉ ELEGIR<br />DIVCAL PE?
+				</h2>
+				<div class="why-metric">
+					<div class="why-big" id="whytitulo_izquierda"></div>
+					<p class="why-p" id="whytexto_izquierda"></p>
+
+					<div class="why-subtitulo_izquierda" id="whysubtitulo_izquierda"></div>
+					<p class="why-sub" id="whysubtexto_izquierda"></p>
+				</div>
+			</div>
+			<div class="why-right">
+				<div class="why-card" id="whyCard">
+					<img id="whyImg" alt="" />
+					<div class="why-overlay"></div>
+					<div class="why-titulo_card" id="whytitulo_card"></div>
+					<div class="why-cardText">
+						<div class="why-cardTitle" id="whyCardTitle"></div>
+						<div class="why-cardDesc" id="whyCardDesc"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="why-pagination">
+		<div class="why-dots" id="whyDots" aria-label="Paginación del carrusel">
+			{slides.map((_, i) => (
+				<button
+					type="button"
+					class="why-dot"
+					data-index={i}
+					aria-label={`Ir al slide ${i + 1}`}
+				/>
+			))}
+		</div>
+	</div>
+	<script define:vars={{ slides }}>
+		let active = 0;
+		let timer = null;
+		const INTERVAL = 5000;
+		const $titulo_card = document.getElementById("whytitulo_card");
+		const $img = document.getElementById("whyImg");
+		const $titulo_izquierda = document.getElementById("whytitulo_izquierda");
+		const $texto_izquierda = document.getElementById("whytexto_izquierda");
+		const $subtitulo_izquierda = document.getElementById("whysubtitulo_izquierda");
+		const $subtexto_izquierda = document.getElementById("whysubtexto_izquierda");
+		const $cardTitle = document.getElementById("whyCardTitle");
+		const $cardDesc = document.getElementById("whyCardDesc");
+		const dotButtons = Array.from(document.querySelectorAll(".why-dot"));
+		dotButtons.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const i = Number(btn.dataset.index);
+				setActive(i, true);
+			});
+		});
+		function paintDots() {
+			dotButtons.forEach((b, i) => {
+				b.classList.toggle("is-active", i === active);
+			});
+		}
+		function setActive(i, fromClick = false) {
+			active = i;
+			const s = slides[i];
+			$titulo_card.textContent = s.titulo_card;
+			$img.src = s.imagen?.src || s.imagen;
+			$img.alt = s.titulo_card;
+			$titulo_izquierda.textContent = s.titulo_izquierda;
+			$texto_izquierda.textContent = s.texto_izquierda;
+			$subtitulo_izquierda.textContent = s.subtitulo_izquierda;
+			$subtexto_izquierda.textContent = s.subtexto_izquierda;
+			$cardTitle.textContent = "Descubre cómo";
+			$cardDesc.textContent = s.titulo_card;
+			paintDots();
+			if (fromClick) restartAutoplay();
+		}
+		function next() {
+			setActive((active + 1) % slides.length);
+		}
+		function startAutoplay() {
+			stopAutoplay();
+			timer = setInterval(next, INTERVAL);
+		}
+		function stopAutoplay() {
+			if (timer) clearInterval(timer);
+			timer = null;
+		}
+		function restartAutoplay() {
+			startAutoplay();
+		}
+		setActive(0);
+		startAutoplay();
+		const card = document.getElementById("whyCard");
+		card.addEventListener("mouseenter", stopAutoplay);
+		card.addEventListener("mouseleave", startAutoplay);
+	</script>
+	<style>
+		#porque {
+			background: var(--bg);
+		}
+		.why-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 32px;
+			align-items: center;
+		}
+
+		@media (min-width: 1024px) {
+			.why-grid {
+				grid-template-columns: 0.95fr 1.05fr;
+			}
+		}
+		.why-h2 {
+			color: var(--text);
+			font-weight: 900;
+			font-size: 44px;
+			line-height: 1.05;
+			margin-bottom: 24px;
+		}
+		.why-metric {
+			max-width: 520px;
+		}
+		.why-big {
+			font-size: 34px;
+			font-weight: 800;
+			color: var(--text);
+			margin-bottom: 8px;
+		}
+		.why-p {
+			font-size: 18px;
+			color: var(--muted);
+			margin-bottom: 18px;
+			line-height: 1.55;
+		}
+		.why-subtitulo_izquierda {
+			font-size: 30px;
+			font-weight: 900;
+			color: var(--text);
+			margin-bottom: 6px;
+		}
+		.why-sub {
+			font-size: 18px;
+			color: var(--muted);
+			line-height: 1.55;
+		}
+		.why-pagination {
+			margin-top: 40px;
+			display: flex;
+			justify-content: center;
+		}
+		.why-dots {
+			display: flex;
+			gap: 14px;
+		}
+		.why-dot {
+			all: unset;
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			border-radius: 999px;
+			background: var(--dot);
+			cursor: pointer;
+		}
+		.why-dot.is-active {
+			background: var(--dotActive);
+			transform: scale(1.25);
+		}
+		.why-card {
+			position: relative;
+			border-radius: 18px;
+			overflow: hidden;
+			background: var(--panel);
+			box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
+		}
+		.why-card img {
+			width: 100%;
+			height: 330px;
+			object-fit: cover;
+			display: block;
+		}
+		.why-overlay {
+			position: absolute;
+			inset: 0;
+			background: rgba(20, 90, 110, 0.35);
+		}
+		.why-titulo_card {
+			position: absolute;
+			top: 18px;
+			left: 18px;
+			color: #ffffff;
+			font-weight: 900;
+			font-size: 20px;
+			z-index: 2;
+			text-transform: uppercase;
+		}
+		.why-cardText {
+			position: absolute;
+			left: 18px;
+			bottom: 18px;
+			color: #ffffff;
+			z-index: 2;
+		}
+		.why-cardTitle {
+			font-size: 24px;
+			font-weight: 800;
+			margin-bottom: 6px;
+		}
+		.why-cardDesc {
+			font-size: 16px;
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+	</style>
+</section>
