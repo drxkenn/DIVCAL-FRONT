@@ -3,6 +3,8 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import AboutSection from '../components/AboutSection.astro';
+import Services from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
 import { WavyBackground } from '../components/WavyBackground';
 ---
 
@@ -33,25 +35,9 @@ import { WavyBackground } from '../components/WavyBackground';
     </section>
 	<AboutSection/>
 	
-    <section id="nosotros" class="py-24 bg-white">
-      <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-gray-800 mb-8">Sobre Nosotros</h2>
-        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-          Aquí irá el resto de la página, es un demo para probar mi navbar xD, aquí van añadiendo sus componentes y lo demás q indiquen.
-        </p>
-        <div class="h-64 bg-gray-200 rounded-lg shadow-inner"></div> </div>
-    </section>
-
-    <section id="servicios" class="py-24 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-gray-800 mb-8">Nuestros Servicios</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 1</div>
-          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 2</div>
-          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 3</div>
-        </div>
-      </div>
-    </section>
+    <Services />
+    
+    <Contact />
 
   </main>
 </Layout>
