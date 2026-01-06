@@ -1,0 +1,99 @@
+---
+const { icon, title, desc, emoji } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.flip-wrap {
+	perspective: 1000px;
+}
+
+.flip-card {
+	position: relative;
+	min-height: 120px;
+	transform-style: preserve-3d;
+	transition: transform 0.7s cubic-bezier(.2,.8,.2,1);
+}
+
+.flip-wrap:hover .flip-card {
+	transform: rotateY(180deg);
+}
+
+.flip-face {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 20px;
+	border-radius: 16px;
+	background: var(--card); /* color sólido */
+	border: 1px solid rgba(255,255,255,.15);
+	box-shadow: 0 20px 40px rgba(0,0,0,.35);
+	backface-visibility: hidden;
+}
+
+.flip-back {
+	transform: rotateY(180deg);
+	justify-content: center;
+}
+
+.flip-icon {
+	width: 40px;
+	height: 40px;
+	display: grid;
+	place-items: center;
+	border-radius: 12px;
+	background: rgba(255,255,255,.08);
+	font-size: 18px;
+}
+
+.flip-title {
+	color: var(--text);
+	font-size: 14px;
+	font-weight: 800;
+	margin-bottom: 4px;
+}
+
+.flip-desc {
+	color: var(--muted);
+	font-size: 13px;
+	line-height: 1.35;
+}
+
+.flip-emoji {
+	width: 70px;
+	height: 70px;
+	border-radius: 999px;
+	background: var(--accent);
+	display: grid;
+	place-items: center;
+	font-size: 32px;
+	color: #00343a;
+}
+
+	</style>
+</head>
+<body>
+	<div class="flip-wrap">
+	<div class="flip-card">
+		<!-- FRONT -->
+		<div class="flip-face flip-front">
+			<div class="flip-icon">{icon}</div>
+			<div>
+				<h3 class="flip-title">{title}</h3>
+				<p class="flip-desc">{desc}</p>
+			</div>
+		</div>
+		<div class="flip-face flip-back">
+			<div class="flip-emoji">{emoji}</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

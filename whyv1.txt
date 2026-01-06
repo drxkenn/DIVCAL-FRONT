@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+*{ box-sizing: border-box; margin:0; padding:0; }
+body{ font-family: Arial, Helvetica, sans-serif; color: var(--text); background:#fff; }
+a{ text-decoration:none; color:inherit; }
+img{ max-width:100%; display:block; }
+.container{
+    width: min(var(--container), calc(100% - 32px));
+    margin: 0 auto;
+}
+.why{
+    padding: 80px 0;
+    background: #fff;
+}
+
+.why-title{
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 48px;
+}
+.why-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+/*flip*/
+.why-card{
+    height: 160px;
+    perspective: 1000px;
+}
+
+.why-inner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .65s cubic-bezier(.2,.8,.2,1);
+}
+
+/*gira*/
+.why-card:hover .why-inner{
+    transform: rotateY(180deg);
+}
+
+/* Caras */
+.why-front,
+.why-back{
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 10px 26px rgba(0,0,0,.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #fff;
+}
+
+/*texto de frente*/
+.why-front p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.35;
+    color: #111;
+}
+
+/*emoji atrás*/
+.why-back{
+    transform: rotateY(180deg);
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+}
+
+.why-emoji{
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    background: var(--orange);
+    color: #fff;
+    box-shadow: 0 14px 30px rgba(0,0,0,.12);
+}
+
+/*repsonsive*/
+@media (max-width: 900px){
+    .why-list{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px){
+    .why-list{ grid-template-columns: 1fr; }
+    .why-card{ height: 150px; }
+}
+
+/*animación responsive*/
+@media (prefers-reduced-motion: reduce){
+    .why-inner{ transition: none; }
+    .why-card:hover .why-inner{ transform: none; }
+}
+    </style>
+</head>
+<body>
+    <section id="porque" class="why">
+    <div class="container">
+        <h2 class="why-title">¿Por qué elegir DIVCAL PE?</h2>
+        <div class="why-list">
+            <div class="why-card">
+                <div class="why-inner">
+                    <div class="why-front">
+                        <p>Enfoque BPO integral</p>
+                    </div>
+                    <div class="why-back">
+                        <div class="why-emoji">📌
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-card">
+                <div class="why-inner">
+                    <div class="why-front">
+                        <p>Soluciones adaptadas a cada cliente</p>
+                    </div>
+                    <div class="why-back">
+                        <div class="why-emoji">🎯</div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-card">
+                <div class="why-inner">
+                    <div class="why-front">
+                        <p>Equipo capacitado y supervisado</p>
+                    </div>
+                    <div class="why-back">
+                        <div class="why-emoji">👥</div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-card">
+                <div class="why-inner">
+                    <div class="why-front">
+                        <p>Atención omnicanal personalizada</p>
+                    </div>
+                    <div class="why-back">
+                        <div class="why-emoji">💬</div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-card">
+                <div class="why-inner">
+                    <div class="why-front">
+                        <p>Control de calidad y reportes</p>
+                    </div>
+                    <div class="why-back">
+                        <div class="why-emoji">📊</div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-card">
+                <div class="why-inner">
+                    <div class="why-front">
+                        <p>Orientación a resultados</p>
+                    </div>
+                    <div class="why-back">
+                        <div class="why-emoji">🚀</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+
+
+SEGUNDA VERSION DE FLIPCARD
+FLIPCARD.ASTRO
+---
+const { icon, title, desc, emoji } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.flip-wrap{
+			perspective: 1000px;
+		}
+
+		.flip-card{
+			position: relative;
+			min-height: 120px;
+			transform-style: preserve-3d;
+			transition: transform 700ms cubic-bezier(.2,.8,.2,1);
+		}
+
+		.flip-wrap:hover .flip-card{
+			transform: rotateY(180deg);
+		}
+
+		.flip-face{
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			gap: 16px;
+			padding: 20px;
+			border-radius: 16px;
+			border: 1px solid rgba(255,255,255,.15);
+			background: var(--card);
+			box-shadow: 0 20px 40px rgba(0,0,0,.35);
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+		}
+		.flip-front{
+			transform: rotateY(0deg);
+		}
+		.flip-back{
+			transform: rotateY(180deg);
+			justify-content: center;
+		}
+		.flip-icon{
+			width: 40px;
+			height: 40px;
+			display: grid;
+			place-items: center;
+			border-radius: 12px;
+			font-size: 18px;
+			flex: 0 0 auto;
+		}
+		.flip-title{
+			color: var(--text);
+			font-size: 14px;
+			font-weight: 800;
+			margin-bottom: 4px;
+		}
+
+		.flip-desc{
+			color: var(--muted);
+			font-size: 13px;
+			line-height: 1.35;
+		}
+
+		.flip-emoji{
+			width: 74px;
+			height: 74px;
+			display: grid;
+			place-items: center;
+			border-radius: 999px;
+			background: var(--accent);
+			font-size: 34px;
+			color: #00343a;
+		}
+	</style>
+</head>
+<body>
+	<div class="flip-wrap">
+	<div class="flip-card">
+		<div class="flip-face flip-front">
+			<div class="flip-icon">
+				{icon}
+			</div>
+			<div>
+				<h3 class="flip-title">{title}</h3>
+				<p class="flip-desc">{desc}</p>
+			</div>
+		</div>
+		<div class="flip-face flip-back">
+			<div class="flip-emoji">
+				{emoji}
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
+
+WHY.ASTRO
+---
+import FlipCard from "./FlipCard.astro";
+
+const cards = [
+	{
+		icon: "📈",
+		title: "Insights en tiempo real",
+		desc: "Decisiones más rápidas con información accionable.",
+		emoji: "⚡",
+	},
+	{
+		icon: "🎯",
+		title: "Planes flexibles",
+		desc: "Soluciones adaptadas a tu negocio.",
+		emoji: "🧩",
+	},
+	{
+		icon: "🔒",
+		title: "Procesos seguros",
+		desc: "Seguridad y control en cada interacción.",
+		emoji: "🛡️",
+	},
+	{
+		icon: "💬",
+		title: "Soporte dedicado",
+		desc: "Acompañamiento cercano y constante.",
+		emoji: "🤝",
+	},
+];
+---
+<section
+	id="porque"
+	style="
+		--section:#35f2ff;
+		--card:#a2ccf1;
+		--text:#000000;
+		--muted:rgba(0, 0, 0, 0.75);
+		--accent:#ffffff;
+	"
+	class="py-24"
+>
+	<div class="max-w-280 mx-auto px-4 grid lg:grid-cols-[1.2fr_.8fr] gap-12 min-h-130">
+		<div class="flex flex-col">
+			<h2 class="text-(--text) text-4xl font-extrabold mb-4 text-center">
+				¿Por qué elegir DIVCAL PE?
+			</h2>
+
+			<p class="text-(--muted) max-w-xl mb-6 text-sm leading-relaxed">
+				Diseñado para ayudarte a ahorrar tiempo, mantener orden y lograr mejores resultados con menos esfuerzo.
+			</p>
+			<div class="flex-1 min-h-75 rounded-2xl overflow-hidden border border-white/15">
+				<img
+					src="/img/why-team.jpg"
+					alt="Equipo trabajando"
+					class="w-full h-full object-cover"
+					loading="lazy"
+				/>
+			</div>
+		</div>
+		<div class="grid gap-5 auto-rows-fr">
+			{cards.map((c) => (
+				<FlipCard {...c} />
+			))}
+		</div>
+	</div>
+</section>
+<style>
+	section#porque{
+		background: var(--section);
+	}
+</style>
+
+
+
+---
+import whyImage from '../assets/img/why.png'
+const cards_izquierda = [
+	{
+		icono: "🏢",
+		titulo: "Enfoque BPO integral",
+		desc: "Gestión completa de procesos externalizados con visión estratégica.",
+	},
+	{
+		icono: "🧩",
+		titulo: "Soluciones adaptadas",
+		desc: "Servicios diseñados a la medida de cada cliente.",
+	},
+	{
+		icono: "👥",
+		titulo: "Equipo capacitado y supervisado",
+		desc: "Personal entrenado y supervisado constantemente.",
+	},
+];
+
+const cards_derecha = [
+	{
+		icono: "📞",
+		titulo: "Atención omnicanal personalizada",
+		desc: "Comunicación fluida y personalizada en múltiples canales.",
+	},
+	{
+		icono: "📊",
+		titulo: "Control de calidad y reportes",
+		desc: "Monitoreo continuo con reportes claros y accionables.",
+	},
+	{
+		icono: "🚀",
+		titulo: "Orientación a resultados",
+		desc: "Enfoque en métricas, eficiencia y mejora continua.",
+	},
+];
+---
+<section id="porque" class="py-28 bg-white">
+	<div class="max-w-280 mx-auto px-4">
+				<div class="text-center mb-14">
+			<h2 class="text-4xl font-extrabold mb-3 text-black">
+				¿Por qué elegir DIVCALPE?
+			</h2>
+			<p class="text-sm text-black/75 max-w-xl mx-auto">
+				Diseñado para optimizar procesos, ahorrar tiempo y mejorar resultados.
+			</p>
+		</div>
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
+			<div class="grid gap-6 lg:-translate-y-6">
+				{cards_izquierda.map((c) => (
+					<div class="flex items-center gap-4 bg-[#52cada] border border-white/15 rounded-2xl p-5">
+						<div class="w-11 h-11 rounded-xl grid place-items-center text-[22px] shrink-0">
+							{c.icono}
+						</div>
+						<div>
+							<h3 class="text-[14px] font-extrabold leading-tight mb-1 text-black">
+								{c.titulo}
+							</h3>
+							<p class="text-[13px] leading-snug text-black/75">
+								{c.desc}
+							</p>
+						</div>
+					</div>
+				))}
+			</div>
+			<div class="flex flex-col items-center">
+				<div class="
+					w-70 h-95 lg:w-70 lg:h-95
+					max-lg:w-65 max-lg:h-85
+					rounded-[18px] overflow-hidden bg-white
+					shadow-[0_40px_80px_rgba(0,0,0,0.18),0_10px_20px_rgba(0,0,0,0.12)]
+					mb-6
+				">
+					<img
+						src={whyImage.src}
+						alt="Equipo DIVCAL"
+						class="w-full h-full object-cover"
+						loading="lazy"
+					/>
+				</div>
+				<a
+					href="#contacto"
+					class="inline-block px-7 py-3 rounded-full bg-[#52cada] text-black text-[13px] font-bold transition-transform hover:-translate-y-0.5"
+				>
+					Solicitar cotización
+				</a>
+			</div>
+			<div class="grid gap-6 lg:-translate-y-6">
+				{cards_derecha.map((c) => (
+					<div class="flex items-center gap-4 bg-[#52cada] border border-white/15 rounded-2xl p-5">
+						<div class="w-11 h-11 rounded-xl grid place-items-center text-[22px] shrink-0">
+							{c.icono}
+						</div>
+						<div>
+							<h3 class="text-[14px] font-extrabold leading-tight mb-1 text-black">
+								{c.titulo}
+							</h3>
+							<p class="text-[13px] leading-snug text-black/75">
+								{c.desc}
+							</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
+

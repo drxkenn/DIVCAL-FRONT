@@ -1,0 +1,142 @@
+---
+// src/components/Navbar.astro
+const navLinks = [
+  { name: 'Inicio', href: '#inicio' },
+  { name: 'Nosotros', href: '#nosotros' },
+  { name: 'Servicios', href: '#servicios' },
+  { name: 'Contacto', href: '#contacto' },
+  { name: '¿Por qué elegirnos?', href: '#porque' },
+];
+---
+
+<header 
+  class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent py-4" 
+  id="main-header"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 md:h-16"> 
+      
+      <div class="shrink-0 flex items-center">
+        <a href="#inicio" class="flex items-center gap-2">
+          <img 
+            id="nav-logo"
+            class="h-12 md:h-14 w-auto object-contain transition-all duration-300 brightness-0 invert" 
+            src="/src/assets/img/logo-divcal.png" 
+            alt="Logo Divcal" 
+          />
+        </a>
+      </div>
+
+      <nav class="hidden md:flex space-x-8">
+        {navLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="nav-text relative text-white hover:text-blue-400 px-3 py-2 text-base font-bold transition-colors duration-200
+            after:content-[''] 
+            after:absolute 
+            after:w-full 
+            after:h-[2px] 
+            after:bg-blue-400 
+            after:bottom-0 
+            after:left-0 
+            after:origin-center 
+            after:scale-x-0 
+            after:transition-transform 
+            after:duration-300 
+            hover:after:scale-x-100"
+          >
+            {link.name}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex items-center md:hidden">
+        <button 
+          id="mobile-menu-btn"
+          type="button" 
+          class="nav-text text-white inline-flex items-center justify-center p-2 rounded-md hover:text-blue-400 focus:outline-none" 
+          aria-controls="mobile-menu" 
+          aria-expanded="false"
+        >
+          <span class="sr-only">Abrir menú principal</span>
+          <svg class="block h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="hidden h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-xl" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class="block px-3 py-2 rounded-md text-lg font-bold text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+        >
+          {link.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('main-header');
+  const navTexts = document.querySelectorAll('.nav-text');
+  const logo = document.getElementById('nav-logo');
+
+  function handleScroll() {
+    if (!header) return;
+
+    if (window.scrollY > 50) {
+      // SCROLL
+      header.classList.remove('bg-transparent', 'py-4');
+      header.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-2'); 
+      
+      navTexts.forEach(el => {
+        el.classList.remove('text-white');
+        el.classList.add('text-gray-600');
+      });
+
+      if(logo) {
+        logo.classList.remove('brightness-0', 'invert');
+      }
+
+    } else {
+      // TOP
+      header.classList.add('bg-transparent', 'py-4');
+      header.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-2');
+
+      navTexts.forEach(el => {
+        el.classList.add('text-white');
+        el.classList.remove('text-gray-600');
+      });
+
+      if(logo) {
+        logo.classList.add('brightness-0', 'invert');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+
+  // Menú móvil lógica
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const svgs = btn?.querySelectorAll('svg');
+
+  if (btn && menu && svgs) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      svgs.forEach(svg => svg.classList.toggle('hidden'));
+      svgs.forEach(svg => svg.classList.toggle('block'));
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', (!isExpanded).toString());
+    });
+  }
+</script>

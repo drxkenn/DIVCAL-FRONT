@@ -1,0 +1,75 @@
+.flip-wrap{
+	perspective: 1000px;
+}
+
+.flip-card{
+	position: relative;
+	min-height: 120px;
+	transform-style: preserve-3d;
+	transition: transform 700ms cubic-bezier(.2,.8,.2,1);
+}
+
+.flip-wrap:hover .flip-card{
+	transform: rotateY(180deg);
+}
+
+.flip-face{
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 20px;
+	border-radius: 16px;
+	border: 1px solid rgba(255,255,255,.15);
+	background: var(--card); /* sólido */
+	box-shadow: 0 20px 40px rgba(0,0,0,.35);
+	backface-visibility: hidden; /* CLAVE: evita texto espejado */
+	-webkit-backface-visibility: hidden;
+}
+
+.flip-front{
+	transform: rotateY(0deg);
+}
+
+.flip-back{
+	transform: rotateY(180deg);
+	justify-content: center;
+}
+
+/* estilos internos (igual que antes pero limpios) */
+.flip-icon{
+	width: 40px;
+	height: 40px;
+	display: grid;
+	place-items: center;
+	border-radius: 12px;
+	background: rgba(255,255,255,.05);
+	border: 1px solid rgba(255,255,255,.15);
+	font-size: 18px;
+	flex: 0 0 auto;
+}
+
+.flip-title{
+	color: var(--text);
+	font-size: 14px;
+	font-weight: 800;
+	margin-bottom: 4px;
+}
+
+.flip-desc{
+	color: var(--muted);
+	font-size: 13px;
+	line-height: 1.35;
+}
+
+.flip-emoji{
+	width: 74px;
+	height: 74px;
+	display: grid;
+	place-items: center;
+	border-radius: 999px;
+	background: var(--accent);
+	font-size: 34px;
+	color: #00343a;
+}
