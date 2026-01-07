@@ -1,89 +1,152 @@
 ---
 // src/components/AboutSection.astro
+import AboutImage from "./AboutImage.astro";
+import AboutText from "./AboutText.astro";
+
+interface Props {
+    // Configuración de imagen
+    imageSrc?: string;
+    imageAlt?: string;
+    imagePosition?: "left" | "right";
+    showImageOverlay?: boolean;
+
+    // Configuración de texto
+    title?: string;
+    subtitle?: string;
+    highlightColor?: "sky" | "celeste";
+
+    // Layout
+    className?: string;
+    reverseOnMobile?: boolean;
+}
+
+const {
+    imageSrc = "/src/assets/img/NosotrosImagen.jpg",
+    imageAlt = "Equipo DIVCAL",
+    imagePosition = "right",
+    showImageOverlay = true,
+    title = "Conoce DIVCAL",
+    subtitle = "Quiénes Somos",
+    highlightColor = "sky",
+    className = "",
+    reverseOnMobile = false,
+} = Astro.props;
+
+const imageOrder = imagePosition === "left" ? "lg:order-1" : "lg:order-2";
+const textOrder = imagePosition === "left" ? "lg:order-2" : "lg:order-1";
+const mobileOrder = reverseOnMobile
+    ? "order-2 lg:order-1"
+    : "order-1 lg:order-2";
 ---
 
-<div class="min-h-screen w-full flex items-center justify-center py-12 lg:py-0">
-  <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center">
-      
-      <!-- Imagen -->
-      <div class="relative group order-2 lg:order-1 mt-8 lg:mt-0">
+<section
+    class={`min-h-screen w-full flex items-center justify-center py-12 lg:py-0 ${className}`}
+>
+    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          class="absolute -inset-3 sm:-inset-4 rounded-3xl opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-30"
-          style="background: linear-gradient(90deg, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%);"
+            class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center"
         >
-        </div>
-        <img
-          src="/src/assets/img/NosotrosImagen.jpg" 
-          alt="Equipo DIVCAL"
-          class="relative rounded-2xl shadow-2xl w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
-          loading="lazy"
-        />
-      </div>
-
-      <!-- Contenido -->
-      <div class="space-y-6 lg:space-y-8 order-1 lg:order-2">
-        <div>
-          <div class="mb-6 lg:mb-12">
-            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4">
-              <div class="w-12 sm:w-16 lg:w-24 h-1.5 rounded-full bg-sky-500"></div>
-
-              <span class="font-bold uppercase tracking-widest text-base sm:text-lg lg:text-xl xl:text-2xl text-sky-600 text-center sm:text-left" style="letter-spacing: 0.2em;">
-                Quiénes Somos
-              </span>
-
-              <div class="w-12 sm:w-16 lg:w-24 h-1.5 rounded-full bg-sky-500"></div>
+            <!-- Sección de Imagen (SIN fondo transparente) -->
+            <div class={`${mobileOrder} ${imageOrder} mt-8 lg:mt-0`}>
+                <AboutImage
+                    src={imageSrc}
+                    alt={imageAlt}
+                    showOverlay={showImageOverlay}
+                />
             </div>
-          </div>
 
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 lg:mb-6 text-gray-900 leading-tight">
-            Conoce <span class="text-sky-500 block sm:inline">DIVCAL</span>
-          </h2>
+            <!-- Sección de Texto (CON fondo transparente) -->
+            <div
+                class={`${reverseOnMobile ? "order-1" : "order-2"} ${textOrder}`}
+            >
+                <div class="relative">
+                    <!-- Fondo transparente solo alrededor del texto -->
+                    <div
+                        class="absolute -inset-4 lg:-inset-6 bg-white/30 backdrop-blur-md rounded-[2rem] lg:rounded-[3rem] -z-10"
+                    >
+                    </div>
+
+                    <!-- Elementos decorativos (opcionales) -->
+                    <div
+                        class="absolute -top-4 -left-4 w-24 h-24 bg-white/30 rounded-full blur-xl -z-10"
+                    >
+                    </div>
+                    <div
+                        class="absolute -bottom-4 -right-4 w-32 h-32 bg-white/30 rounded-full blur-xl -z-10"
+                    >
+                    </div>
+
+                    <!-- Contenido del texto -->
+                    <div class="relative p-6 lg:p-10 xl:p-12">
+                        <AboutText
+                            subtitle={subtitle}
+                            highlightColor={highlightColor}
+                        >
+                            <!-- Título personalizado con span -->
+                            <h2
+                                slot="title"
+                                class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight"
+                            >
+                                Conoce <span class="text-cyan-500">DIVCAL</span>
+                            </h2>
+
+                            <!-- Contenido por defecto -->
+                            <div slot="content">
+                                <p
+                                    class="text-base sm:text-lg lg:text-xl leading-relaxed text-black"
+                                >
+                                    En <span class="font-semibold text-black"
+                                        >DIVCAL PE</span
+                                    > nos especializamos en soluciones
+                                    <span class="font-medium text-gray-900">
+                                        BPO de Contact Center Omnicanal</span
+                                    >, ofreciendo servicios personalizados que
+                                    optimizan la comunicación entre empresas y
+                                    sus clientes.
+                                </p>
+
+                                <p
+                                    class="text-base sm:text-lg lg:text-xl leading-relaxed text-black"
+                                >
+                                    Trabajamos mano a mano con empresas de
+                                    diversos sectores para transformar sus
+                                    operaciones de atención al cliente en
+                                    experiencias excepcionales que generan valor
+                                    sostenible.
+                                </p>
+                            </div>
+
+                            <!-- Cita destacada SIN comillas -->
+                            <p slot="highlight" class="text-[#32b4c1]">
+                                Transformamos desafíos operativos en ventajas
+                                competitivas sostenibles
+                            </p>
+                        </AboutText>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="space-y-4 lg:space-y-6">
-          <p class="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-600">
-            En <span class="font-semibold text-sky-600">DIVCAL PE</span> nos especializamos en soluciones 
-            <span class="font-medium text-gray-900"> BPO de Contact Center Omnicanal</span>...
-          </p>
-
-          <p class="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-600">
-            Trabajamos mano a mano con empresas de diversos sectores...
-          </p>
-        </div>
-
-        <!-- Cita -->
-        <div class="relative mt-8 lg:mt-10">
-          <div class="absolute -top-4 sm:-top-5 left-0 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-sky-500">
-            <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
-            </svg>
-          </div>
-
-          <blockquote class="pl-10 sm:pl-12 pt-1 sm:pt-2 text-lg sm:text-xl lg:text-2xl font-medium italic text-sky-700 leading-snug">
-            "Transformamos desafíos operativos en ventajas competitivas sostenibles"
-          </blockquote>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+</section>
 
 <style>
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-  }
-  
-  .group:hover .absolute.-inset-3,
-  .group:hover .absolute.-inset-4 {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  /* Asegurar que la imagen no se desborde en móviles */
-  @media (max-width: 640px) {
-    .rounded-2xl {
-      border-radius: 1rem;
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
     }
-  }
+
+    .group:hover .absolute.-inset-4 {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @media (max-width: 640px) {
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+    }
 </style>
