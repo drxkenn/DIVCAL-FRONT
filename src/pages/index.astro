@@ -15,8 +15,8 @@ import Why from '../components/Why.astro'
   <Navbar />
 
   <main>
+    <!-- Hero Section -->
     <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-gray-900">
-      
       <div class="absolute inset-0 z-0">
          <video
            class="w-full h-full object-cover"
@@ -30,39 +30,26 @@ import Why from '../components/Why.astro'
            Tu navegador no soporta videos HTML5.
          </video>
       </div>
-
-      <div class="relative z-10 text-center px-4">
-        </div>
     </section>
 
-
+   
     <WavyBackground 
-        client:visible 
-        containerClassName="w-full py-20" 
-        id="nosotros"
-        backgroundFill="white"
-        waveOpacity={1}
-        colors={["#32b4c1", "#20294a", "#e7e8ed", "#0c4a6e"]}
+      client:visible
+      containerClassName="w-full min-h-screen"
+      backgroundFill="white"
+      waveOpacity={0.7}
+      colors={["#32b4c1", "#20294a", "#e7e8ed", "#0c4a6e"]}
+      speed='slow'
+      waveWidth={85}
     >
-        <AboutSection />
-    </WavyBackground>
-
-    <section id="servicios" class="py-24 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-gray-800 mb-8">Nuestros Servicios</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 1</div>
-          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 2</div>
-          <div class="bg-white p-8 rounded-xl shadow-md h-60">Servicio 3</div>
-        </div>
+      <div class="w-full h-full flex items-center justify-center">
+        <AboutSection/>
       </div>
-    </section>
-
-	
-    <Services />
+    </WavyBackground>
+  
     
+    <Services />
     <Contact />
-	<Why></Why>
-
+    <Why />
   </main>
 </Layout>
