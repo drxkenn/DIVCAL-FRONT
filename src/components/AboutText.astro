@@ -1,77 +1,101 @@
 ---
 // src/components/AboutText.astro
+type ColorTheme = "sky" | "celeste";
+
 interface Props {
   title?: string;
+  subtitle?: string;
   className?: string;
+  highlightColor?: ColorTheme;
+  showDivider?: boolean;
+  showQuote?: boolean;
 }
 
-const { title = "Sobre Nosotros", className = "" } = Astro.props;
+const { 
+  title = "Sobre Nosotros",
+  subtitle = "Quiénes Somos",
+  className = "",
+  highlightColor = "sky",
+  showDivider = true,
+  showQuote = true
+} = Astro.props;
+
+// Definir temas de color
+const themes = {
+  sky: {
+    text: "text-sky-600",
+    bg: "bg-sky-500",
+    border: "border-sky-300",
+    quote: "text-sky-700"
+  },
+  celeste: {
+    text: "text-celeste-600",
+    bg: "bg-celeste-500",
+    border: "border-celeste-300",
+    quote: "text-celeste-700"
+  }
+} as const;
+
+const colors = themes[highlightColor];
 ---
 
-<div class={`relative ${className}`}>
-  <!-- Fondo decorativo -->
-  <div class="absolute -top-4 -left-4 w-24 h-24 bg-celeste-300 rounded-full opacity-10 blur-xl"></div>
-  <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-celeste-400 rounded-full opacity-10 blur-xl"></div>
-  
-  <!-- Tarjeta principal -->
-  <div class="relative bg-gradient-to-br from-white/10 to-celeste-50/5 backdrop-blur-sm border border-white/20 rounded-2xl p-8 md:p-10 shadow-2xl shadow-celeste-900/20">
-    
-    <!-- Título con acento decorativo -->
-    <div class="flex items-center gap-4 mb-8">
-      <div class="w-12 h-1 bg-gradient-to-r from-celeste-400 to-celeste-300 rounded-full"></div>
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-        {title}
+<div class={`space-y-6 lg:space-y-8 ${className}`}>
+  <!-- Subtítulo con barras decorativas -->
+  {showDivider && (
+    <div class="mb-6 lg:mb-12">
+      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4">
+        <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full ${colors.bg}`}></div>
+        <span class="font-bold uppercase tracking-widest text-base sm:text-lg lg:text-xl xl:text-2xl text-center sm:text-left ${colors.text}" style="letter-spacing: 0.2em;">
+          {subtitle}
+        </span>
+        <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full ${colors.bg}`}></div>
+      </div>
+    </div>
+  )}
+
+  <!-- Título principal -->
+  {title && (
+    <div class="mb-4 lg:mb-6">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
+        <slot name="title">
+          {title}
+        </slot>
       </h2>
     </div>
+  )}
+
+  <!-- Contenido principal -->
+  <div class="space-y-4 lg:space-y-6">
+    <slot name="content" />
     
-    <!-- Contenido del párrafo -->
-    <div class="space-y-6">
-      <div class="space-y-4">
-        <slot name="paragraph" />
-      </div>
-      
-      <!-- Texto destacado con diseño especial -->
-      <div class="relative mt-10 pt-6 border-t border-white/20">
+    <!-- Contenido de párrafos por defecto -->
+    <div class="space-y-4">
+      <slot />
+    </div>
+  </div>
+
+  <!-- Slot para quote personalizado o diseño por defecto -->
+  <slot name="quote">
+    <!-- Si showQuote es true, mostrar el diseño de cita por defecto -->
+    {showQuote && (
+      <div class="relative mt-8 lg:mt-10 pt-6 border-t ${colors.border}">
         <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <div class="w-6 h-6 bg-celeste-400 rounded-full flex items-center justify-center">
+          <div class={`w-6 h-6 ${colors.bg} rounded-full flex items-center justify-center`}>
             <div class="w-3 h-3 bg-white rounded-full"></div>
           </div>
         </div>
         
         <blockquote class="relative">
-          <div class="absolute -left-4 top-0 text-4xl text-celeste-300 opacity-50">"</div>
-          <p class="text-lg md:text-xl font-medium text-white pl-6 pr-6 leading-relaxed italic">
-            <slot name="highlight" />
-          </p>
-          <div class="absolute -right-4 bottom-0 text-4xl text-celeste-300 opacity-50">"</div>
+          <div class="absolute -left-4 top-0 text-4xl opacity-50 ${colors.text}">"</div>
+          <div class="text-lg sm:text-xl lg:text-2xl font-medium pl-6 pr-6 leading-relaxed italic ${colors.quote}">
+            <!-- Slot para el texto del highlight -->
+            <slot name="highlight">
+              Texto destacado por defecto
+            </slot>
+          </div>
+          <div class="absolute -right-4 bottom-0 text-4xl opacity-50 ${colors.text}">"</div>
         </blockquote>
-        
-        <!-- Firma decorativa -->
-        <div class="flex items-center justify-end gap-2 mt-4">
-          <div class="h-px w-12 bg-gradient-to-l from-celeste-300 to-transparent"></div>
-          <span class="text-sm text-celeste-200 font-light">DIVCAL PE</span>
-        </div>
       </div>
-    </div>
-    
-    <!-- Elementos decorativos en esquinas -->
-    <div class="absolute top-4 right-4 w-8 h-8 border-t border-r border-celeste-300/30 rounded-tr-2xl"></div>
-    <div class="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-celeste-300/30 rounded-bl-2xl"></div>
-  </div>
+    )}
+  </slot>
 </div>
-
-<style>
-  /* Animación sutil para el fondo */
-  .relative > div:first-child {
-    animation: float 8s ease-in-out infinite;
-  }
-  
-  .relative > div:nth-child(2) {
-    animation: float 12s ease-in-out infinite reverse;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(10px, -10px); }
-  }
-</style>
