@@ -33,22 +33,31 @@ const services = [
 ];
 ---
 
-<section id="servicios" class="py-20 bg-white">
+<section id="servicios" class="py-20 bg-[#20294a]">
   <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-center text-4xl font-black text-black mb-14">Nuestros servicios</h2>
+    {/* CAMBIO: Texto del título a blanco (text-white) para que se vea en el fondo oscuro */}
+    <h2 class="text-center text-4xl font-black text-white mb-14">Nuestros servicios</h2>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {services.map((service) => (
-        <div class="relative overflow-hidden bg-white border border-gray-100 rounded-xl p-12 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gray-200 group">
+        /* CAMBIOS EN LAS CLASES DEL DIV:
+           1. bg-white -> bg-white/5 (Fondo blanco al 5% de opacidad)
+           2. border-gray-100 -> border-white/10 (Borde sutil semitransparente)
+           3. Añadido: backdrop-blur-md (El efecto de vidrio borroso)
+        */
+        <div class="relative overflow-hidden bg-white/20 backdrop-blur-md border border-white/10 rounded-xl p-12 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-white/10 group">
           
           {/* El efecto Border Beam */}
           <div class="border-beam"></div>
+
           <div class="relative z-20"> 
             <div class="flex justify-center mb-6">
-              <div class="w-20 h-20 bg-gradient-to-br from-cyan-300 to-cyan-600 rounded-full flex items-center justify-center text-white shadow-lg" set:html={service.icon} />
+              <div class="w-20 h-20 bg-gradient-to-br from-[#32b4c1] to-[#20294a] rounded-full flex items-center justify-center text-white shadow-lg" set:html={service.icon} />
             </div>
-            <h3 class="text-sm font-black uppercase text-gray-900 mb-4 leading-relaxed">{service.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed m-0">{service.description}</p>
+            {/* CAMBIO: Texto a blanco (text-white) */}
+            <h3 class="text-sm font-black uppercase text-white mb-4 leading-relaxed">{service.title}</h3>
+            {/* CAMBIO: Descripción a gris claro (text-gray-300) */}
+            <p class="text-sm text-gray-300 leading-relaxed m-0">{service.description}</p>
           </div>
         </div>
       ))}
@@ -62,7 +71,7 @@ const services = [
       border-radius: inherit; 
       pointer-events: none;
       z-index: 10;
-      padding: 1.5px; /* GROSOR DEL BORDE LUMINOSO */
+      padding: 1.5px; 
       
       -webkit-mask: 
          linear-gradient(#fff 0 0) content-box, 
@@ -76,9 +85,8 @@ const services = [
       position: absolute;
       width: 200px;
       aspect-ratio: 1;
-      /* Gradiente Cyan */
       background: linear-gradient(to left, transparent, #06b6d4, transparent);
-      offset-path: rect(0 auto auto 0 round 12px); /* '12px' debe coincidir aprox con rounded-xl */
+      offset-path: rect(0 auto auto 0 round 12px); 
       animation: border-beam-anim 8s linear infinite;
     }
 
