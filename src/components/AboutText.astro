@@ -20,16 +20,16 @@ const {
   showQuote = true
 } = Astro.props;
 
-// Definir temas de color
+// Definir temas de color - USANDO LA MISMA VARIANTE PARA BARRAS Y TEXTO
 const themes = {
   sky: {
-    text: "text-sky-600",
+    text: "text-sky-500", // Cambiado de 600 a 500
     bg: "bg-sky-500",
     border: "border-sky-300",
     quote: "text-sky-700"
   },
   celeste: {
-    text: "text-celeste-600",
+    text: "text-celeste-500", // Cambiado de 600 a 500
     bg: "bg-celeste-500",
     border: "border-celeste-300",
     quote: "text-celeste-700"
@@ -40,15 +40,20 @@ const colors = themes[highlightColor];
 ---
 
 <div class={`space-y-6 lg:space-y-8 ${className}`}>
-  <!-- Subtítulo con barras decorativas -->
+  <!-- Subtítulo con barras decorativas - CENTRADO Y MEJORADO -->
   {showDivider && (
     <div class="mb-6 lg:mb-12">
-      <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4">
-        <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full ${colors.bg}`}></div>
-        <span class="font-bold uppercase tracking-widest text-base sm:text-lg lg:text-xl xl:text-2xl text-center sm:text-left ${colors.text}" style="letter-spacing: 0.2em;">
+      <div class="flex items-center justify-center gap-3 sm:gap-4 mb-4">
+        <!-- Primera barra -->
+        <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full bg-cyan-500`}></div>
+        
+        <!-- Subtítulo con EXACTAMENTE el mismo color que las barras -->
+        <span class="font-bold uppercase tracking-widest text-base sm:text-lg lg:text-xl xl:text-2xl text-center text-cyan-500" style="letter-spacing: 0.2em;">
           {subtitle}
         </span>
-        <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full ${colors.bg}`}></div>
+        
+        <!-- Segunda barra -->
+        <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full bg-cyan-500`}></div>
       </div>
     </div>
   )}
@@ -80,21 +85,25 @@ const colors = themes[highlightColor];
     {showQuote && (
       <div class="relative mt-8 lg:mt-10 pt-6 border-t ${colors.border}">
         <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <div class={`w-6 h-6 ${colors.bg} rounded-full flex items-center justify-center`}>
+          <div class={`w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center`}>
             <div class="w-3 h-3 bg-white rounded-full"></div>
           </div>
         </div>
         
         <blockquote class="relative">
-          <div class="absolute -left-4 top-0 text-4xl opacity-50 ${colors.text}">"</div>
-          <div class="text-lg sm:text-xl lg:text-2xl font-medium pl-6 pr-6 leading-relaxed italic ${colors.quote}">
-            <!-- Slot para el texto del highlight -->
-            <slot name="highlight">
-              Texto destacado por defecto
-            </slot>
-          </div>
-          <div class="absolute -right-4 bottom-0 text-4xl opacity-50 ${colors.text}">"</div>
-        </blockquote>
+  <!-- Comilla izquierda con color cyan-500 -->
+  <div class="absolute -left-4 top-0 text-4xl opacity-50 text-cyan-700">"</div>
+  
+  <div class="text-lg sm:text-xl lg:text-2xl font-medium pl-6 pr-6 leading-relaxed italic ${colors.quote}">
+    <!-- Slot para el texto del highlight -->
+    <slot name="highlight">
+      Texto destacado por defecto
+    </slot>
+  </div>
+  
+  <!-- Comilla derecha con color cyan-500 -->
+  <div class="absolute -right-4 bottom-0 text-4xl opacity-50 text-cyan-700">"</div>
+</blockquote>
       </div>
     )}
   </slot>
