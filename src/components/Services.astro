@@ -1,5 +1,4 @@
 ---
-// Datos de los servicios para iterar fácilmente
 const services = [
   {
     title: "ATENCIÓN AL CLIENTE",
@@ -40,14 +39,53 @@ const services = [
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {services.map((service) => (
-        <div class="bg-white border border-gray-100 rounded-xl p-12 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gray-300">
-          <div class="flex justify-center mb-6">
-            <div class="w-20 h-20 bg-gradient-to-br from-cyan-300 to-cyan-500 rounded-full flex items-center justify-center text-white shadow-lg" set:html={service.icon} />
+        <div class="relative overflow-hidden bg-white border border-gray-100 rounded-xl p-12 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-gray-200 group">
+          
+          {/* El efecto Border Beam */}
+          <div class="border-beam"></div>
+          <div class="relative z-20"> 
+            <div class="flex justify-center mb-6">
+              <div class="w-20 h-20 bg-gradient-to-br from-cyan-300 to-cyan-600 rounded-full flex items-center justify-center text-white shadow-lg" set:html={service.icon} />
+            </div>
+            <h3 class="text-sm font-black uppercase text-gray-900 mb-4 leading-relaxed">{service.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed m-0">{service.description}</p>
           </div>
-          <h3 class="text-sm font-black uppercase text-gray-900 mb-4 leading-relaxed">{service.title}</h3>
-          <p class="text-sm text-gray-600 leading-relaxed m-0">{service.description}</p>
         </div>
       ))}
     </div>
   </div>
+
+  <style>
+    .border-beam {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit; 
+      pointer-events: none;
+      z-index: 10;
+      padding: 1.5px; /* GROSOR DEL BORDE LUMINOSO */
+      
+      -webkit-mask: 
+         linear-gradient(#fff 0 0) content-box, 
+         linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .border-beam::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      aspect-ratio: 1;
+      /* Gradiente Cyan */
+      background: linear-gradient(to left, transparent, #06b6d4, transparent);
+      offset-path: rect(0 auto auto 0 round 12px); /* '12px' debe coincidir aprox con rounded-xl */
+      animation: border-beam-anim 8s linear infinite;
+    }
+
+    @keyframes border-beam-anim {
+      to {
+        offset-distance: 100%;
+      }
+    }
+  </style>
 </section>
