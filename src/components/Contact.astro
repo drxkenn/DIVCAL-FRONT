@@ -90,42 +90,48 @@
 </section>
 
 <script>
-  // (El script se mantiene igual que en la respuesta anterior)
   const form = document.getElementById("contactForm") as HTMLFormElement | null;
   const msg = document.getElementById("contactMsg") as HTMLElement | null;
-
   if (form && msg) {
-    form.addEventListener("submit", async (e) => {
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const privacy = form.querySelector('input[name="privacy"]') as HTMLInputElement | null;
+    const setMsg = (text: string, color: string = "red") => {
+      msg.textContent = text;
+      msg.style.color = color;
+    };
+    const setLoading = (loading: boolean) => {
+      if (!btn) return;
+      btn.disabled = loading;
+      btn.innerText = loading ? "Enviando..." : "Entremos en contacto";
+    };
+    form.addEventListener("submit", async (e: SubmitEvent) => {
       e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-      const originalText = btn.innerText;
-      btn.innerText = "Enviando...";
-      btn.disabled = true;
-
+      setMsg("");
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      if (!privacy || !privacy.checked) {
+        setMsg("Debes aceptar la política de privacidad", "red");
+        privacy?.focus();
+        return;
+      }
+      setLoading(true);
       try {
         const data = new FormData(form);
-        const res = await fetch("/api/contact", {
-          method: "POST",
-          body: data
-        });
-        const result = await res.json();
-
-        if (result.success) {
-            msg.textContent = "Mensaje enviado correctamente";
-            msg.style.color = "#4dd0e1";
-            form.reset();
+        const res = await fetch("/api/contact", { method: "POST", body: data });
+        const result = await res.json().catch(() => ({} as any));
+        if (res.ok && result.success) {
+          setMsg("Mensaje enviado correctamente", "#4dd0e1");
+          form.reset();
         } else {
-            throw new Error(result.error || "Error al enviar");
+          setMsg(result.error || "Hubo un error al enviar el mensaje.", "red");
         }
-      } catch (error) {
-        msg.textContent = "Hubo un error al enviar el mensaje.";
-        msg.style.color = "red";
+      } catch {
+        setMsg("Hubo un error al enviar el mensaje.", "red");
       } finally {
-        btn.innerText = originalText;
-        btn.disabled = false;
+        setLoading(false);
       }
     });
   }
 </script>
-
-o
