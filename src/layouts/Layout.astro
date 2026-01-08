@@ -1,15 +1,185 @@
----                            
-  import '../styles/global.css'  
-  import Footer from '../components/Footer.astro';
---- 
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+
+// Definir props para contenido dinámico
+interface Props {
+	title?: string;
+	description?: string;
+	canonicalUrl?: string;
+	ogImage?: string;
+	keywords?: string[];
+}
+
+const {
+	title = "Divcal BPO | Soluciones Omnicanal de Contact Center en Perú",
+	description = "Divcal BPO: Expertos en atención al cliente, soporte omnicanal y gestión de contact center. Transformamos tu comunicación con soluciones BPO personalizadas.",
+	canonicalUrl = Astro.url.href,
+	ogImage = "src/assets/img/logo-divcal.png",
+	keywords = [
+		"bpo perú",
+		"contact center",
+		"atención al cliente",
+		"soporte omnicanal",
+		"televentas",
+		"back office",
+		"servicios bpo",
+		"gestión de clientes",
+	],
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es-PE">
 	<head>
+		<!-- Meta Charset & Viewport -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+		/>
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="img/logo-divcal.png" />
+
+		<!-- TÍTULO SEO (Máximo 60 caracteres) -->
+		<title>{title}</title>
+
+		<!-- DESCRIPCIÓN SEO (Máximo 160 caracteres) -->
+		<meta name="description" content={description} />
+
+		<!-- KEYWORDS -->
+		<meta name="keywords" content={keywords.join(", ")} />
+
+		<!-- AUTHOR y COPYRIGHT -->
+		<meta name="author" content="Divcal BPO Perú" />
+		<meta name="copyright" content="Divcal BPO" />
+
+		<!-- CANONICAL URL -->
+		<link rel="canonical" href={canonicalUrl} />
+
+		<!-- ROBOTS -->
+		<meta
+			name="robots"
+			content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+		/>
+
+		<!-- GEO TAGS (Para Perú) -->
+		<meta name="geo.region" content="PE" />
+		<meta name="geo.placename" content="Perú" />
+		<meta name="geo.position" content="-12.046374;-77.042793" />
+		<meta name="ICBM" content="-12.046374, -77.042793" />
+
+		<!-- OPEN GRAPH PARA REDES SOCIALES -->
+		<meta property="og:title" content={title} />
+		<meta
+			property="og:description"
+			content="Transformamos desafíos operativos en ventajas competitivas sostenibles con soluciones BPO de Contact Center Omnicanal."
+		/>
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Divcal BPO Perú" />
+		<meta property="og:locale" content="es_PE" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<!-- TWITTER CARD -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta
+			name="twitter:description"
+			content="Soluciones BPO de Contact Center que transforman la comunicación de tu empresa en Perú. Atención omnicanal 24/7."
+		/>
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:site" content="@divcal_bpo" />
+		<meta name="twitter:creator" content="@divcal_bpo" />
+
+		<!-- WHATSAPP PREVIEW -->
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta
+			property="og:image:alt"
+			content="Divcal BPO - Soluciones de Contact Center"
+		/>
+
+		<!-- META TÉCNICOS -->
+		<meta name="theme-color" content="#1e40af" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Divcal</title>
+		<meta http-equiv="Content-Language" content="es" />
+		<meta name="language" content="Spanish" />
+		<meta name="revisit-after" content="7 days" />
+		<meta name="distribution" content="global" />
+		<meta name="rating" content="general" />
+
+		<!-- PRE-CONNECT PARA MEJOR PERFORMANCE -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- SCHEMA MARKUP PARA BPO/CONTACT CENTER -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "ProfessionalService",
+				"name": "Divcal BPO Perú",
+				"description": "Empresa líder en soluciones BPO de Contact Center Omnicanal en Perú. Especialistas en atención al cliente, soporte postventa y gestión de contact center.",
+				"url": "https://divcal.com",
+				"logo": "https://divcal.com/logo-divcal.png",
+				"image": "https://divcal.com/og-divcal-bpo.jpg",
+				"address": {
+					"@type": "PostalAddress",
+					"addressCountry": "PE",
+					"addressRegion": "Lima",
+					"addressLocality": "Lima"
+				},
+				"contactPoint": {
+					"@type": "ContactPoint",
+					"contactType": "customer service",
+					"telephone": "+51-XXX-XXX-XXX",
+					"availableLanguage": "Spanish",
+					"contactOption": "TollFree"
+				},
+				"service": [
+					{
+						"@type": "Service",
+						"name": "Atención al Cliente Omnicanal",
+						"description": "Gestión de consultas, reclamos y seguimiento por múltiples canales: llamadas, WhatsApp, chat, email y redes sociales."
+					},
+					{
+						"@type": "Service",
+						"name": "Soporte y Postventa",
+						"description": "Asistencia especializada y solución de incidencias para fortalecer la relación con el cliente."
+					},
+					{
+						"@type": "Service",
+						"name": "Back Office y Procesos",
+						"description": "Gestión administrativa, actualización de bases de datos y soporte operativo interno."
+					},
+					{
+						"@type": "Service",
+						"name": "Ventas y Televentas",
+						"description": "Estrategias comerciales para captación, fidelización y cierre de oportunidades."
+					},
+					{
+						"@type": "Service",
+						"name": "Gestión y Reportes",
+						"description": "Monitoreo de KPIs, control de calidad y reportes analíticos para toma de decisiones."
+					}
+				],
+				"areaServed": {
+					"@type": "Country",
+					"name": "Perú"
+				},
+				"sameAs": [
+					"https://www.facebook.com/divcalbpo",
+					"https://www.linkedin.com/company/divcal-bpo",
+					"https://twitter.com/divcal_bpo"
+				],
+				"priceRange": "$$",
+				"openingHours": "Mo-Fr 08:00-20:00, Sa 09:00-14:00"
+			}
+		</script>
+
+		
 	</head>
 	<body>
 		<slot />
