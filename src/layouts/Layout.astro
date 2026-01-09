@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import WhatsAppBtn from "../components/WhatsAppBtn.astro";
 
 // Definir props para contenido dinámico
 interface Props {
@@ -183,6 +184,7 @@ const {
 	</head>
 	<body>
 		<slot />
+		<WhatsAppBtn phone="51997959646" message="Hola! Me gustaría conocer más sobre los servicios de DIVCAL PE y cómo podrían ayudar a nuestra empresa. ¿Podrían darme más información?" />
 		<Footer />
 	</body>
 </html>
