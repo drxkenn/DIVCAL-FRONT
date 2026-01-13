@@ -1,15 +1,20 @@
 ---
-// Lógica del componente (imports, etc)
+import contactBg from '../assets/img/aboutDIVCAL3.png';
 ---
 
 <section id="contacto" class="relative py-16 bg-gray-900 text-white font-system overflow-hidden">
   
   <div class="absolute inset-0 z-0">
+    <img 
+      src={contactBg.src} 
+      alt="Fondo de contacto" 
+      class="w-full h-full object-cover object-right"
+    />
   </div>
 
   <div class="absolute inset-0 bg-black/65 z-10 pointer-events-none"></div> 
 
-  <div class="relative z-20 max-w-5xl mx-auto px-6">
+  <div class="relative z-20 max-w-7xl mx-auto px-6">
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
       
@@ -24,7 +29,7 @@
         </ul>
       </div>
 
-      <div class="bg-gray-800 p-10 rounded-xl shadow-2xl">
+      <div class="bg-gray-800 p-10 rounded-xl shadow-2xl w-full max-w-lg md:ml-auto">
         <form id="contactForm">
           <h3 class="text-sm font-black uppercase mb-6 text-white tracking-wider">
             PARA CONTRATAR NUESTROS SERVICIOS DÉJANOS TUS DATOS
@@ -35,7 +40,6 @@
               <label for="nombre" class="mb-1 text-xs font-semibold text-white">Nombre <span class="text-red-500">*</span></label>
               <input type="text" id="nombre" name="nombre" class="w-full px-3 py-2 border-none rounded text-sm bg-white text-gray-900" required>
             </div>
-
             <div class="flex-1 flex flex-col">
               <label for="apellidos" class="mb-1 text-xs font-semibold text-white">Apellidos <span class="text-red-500">*</span></label>
               <input type="text" id="apellidos" name="apellidos" class="w-full px-3 py-2 border-none rounded text-sm bg-white text-gray-900" required>
@@ -47,7 +51,6 @@
               <label for="email" class="mb-1 text-xs font-semibold text-white">Correo electrónico <span class="text-red-500">*</span></label>
               <input type="email" id="email" name="email" class="w-full px-3 py-2 border-none rounded text-sm bg-white text-gray-900" required>
             </div>
-
             <div class="flex-1 flex flex-col">
               <label for="telefono" class="mb-1 text-xs font-semibold text-white">Número de teléfono <span class="text-red-500">*</span></label>
               <input type="text" id="telefono" name="telefono" class="w-full px-3 py-2 border-none rounded text-sm bg-white text-gray-900" required>
@@ -59,7 +62,6 @@
               <label for="empresa" class="mb-1 text-xs font-semibold text-white">Empresa <span class="text-red-500">*</span></label>
               <input type="text" id="empresa" name="empresa" class="w-full px-3 py-2 border-none rounded text-sm bg-white text-gray-900" required>
             </div>
-
             <div class="flex-1 flex flex-col">
               <label for="cargo" class="mb-1 text-xs font-semibold text-white">Cargo <span class="text-red-500">*</span></label>
               <input type="text" id="cargo" name="cargo" class="w-full px-3 py-2 border-none rounded text-sm bg-white text-gray-900" required>
