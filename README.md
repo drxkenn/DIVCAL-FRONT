@@ -1,46 +1,69 @@
-# Astro Starter Kit: Basics
+# DIVCAL - Sitio Web Corporativo
 
-```sh
-npm create astro@latest -- --template basics
+Sitio web para DIVCAL desarrollado con Astro + React + TailwindCSS.
+
+## 🚀 Sistema de Contacto
+
+El formulario de contacto utiliza **PHP** para procesar los envíos.
+
+- **Frontend**: Astro (compilado a HTML estático)
+- **Backend**: PHP (`contact.php`)
+- **Hosting**: cPanel
+
+## 📦 Instalación Local
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🏗️ Compilar para Producción
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+npm run build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Esto genera la carpeta `dist/` con todos los archivos estáticos.
 
-## 🧞 Commands
+## 🌐 Despliegue a cPanel
 
-All commands are run from the root of the project, from a terminal:
+Sigue las instrucciones en [DEPLOY_PHP.md](./DEPLOY_PHP.md)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Resumen rápido:
 
-## 👀 Want to learn more?
+1. Compilar: `npm run build`
+2. Comprimir: `Compress-Archive -Path dist\* -DestinationPath divcal-frontend.zip`
+3. Subir a cPanel:
+   - `divcal-frontend.zip` → extraer en `public_html/`
+   - `contact.php` → subir a `public_html/`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 📂 Estructura del Proyecto
+
+```
+DIVCAL-FRONT/
+├── src/
+│   ├── components/      # Componentes Astro/React
+│   ├── layouts/         # Layouts
+│   └── pages/           # Páginas
+├── public/              # Assets estáticos
+├── contact.php          # Backend del formulario
+├── DEPLOY_PHP.md        # Guía de despliegue
+└── dist/               # Build de producción (generado)
+```
+
+## 🛠️ Tecnologías
+
+- **Astro** - Framework web
+- **React** - Componentes interactivos
+- **TailwindCSS** - Estilos
+- **PHP** - Backend de contacto
+
+## 📧 Configuración del Formulario
+
+El archivo `contact.php` envía emails a: **contacto@divcalpe.com**
+
+Para cambiar el destinatario, edita la línea 49 de `contact.php`:
+
+```php
+$destinatario = 'tu-nuevo-email@ejemplo.com';
+```
