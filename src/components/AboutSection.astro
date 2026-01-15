@@ -21,7 +21,7 @@ interface Props {
 }
 
 const {
-    imageSrc = "/src/assets/img/NosotrosImagen.jpg",
+    imageSrc = "/assets/img/NosotrosImagen.jpg",
     imageAlt = "Equipo DIVCAL",
     imagePosition = "right",
     showImageOverlay = true,
@@ -39,7 +39,8 @@ const mobileOrder = reverseOnMobile
     : "order-1 lg:order-2";
 ---
 
-<section id="nosotros"
+<section
+    id="nosotros"
     class={`min-h-screen w-full flex items-center justify-center py-12 lg:py-0 ${className}`}
 >
     <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
