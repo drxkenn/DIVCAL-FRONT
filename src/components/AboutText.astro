@@ -90,20 +90,17 @@ const colors = themes[highlightColor];
           </div>
         </div>
         
-        <blockquote class="relative">
-  <!-- Comilla izquierda con color cyan-500 -->
-  <div class="absolute -left-4 top-0 text-4xl opacity-50 text-cyan-700">"</div>
-  
-  <div class="text-lg sm:text-xl lg:text-2xl font-medium pl-6 pr-6 leading-relaxed italic ${colors.quote}">
-    <!-- Slot para el texto del highlight -->
-    <slot name="highlight">
-      Texto destacado por defecto
-    </slot>
-  </div>
-  
-  <!-- Comilla derecha con color cyan-500 -->
-  <div class="absolute -right-4 bottom-0 text-4xl opacity-50 text-cyan-700">"</div>
-</blockquote>
+        <blockquote class="flex justify-center gap-2 mx-auto w-fit max-w-3xl">
+          <div class="text-4xl opacity-50 text-cyan-700 leading-none -mt-2">"</div>
+          
+          <div class={`text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed italic text-center ${colors.quote}`}>
+            <slot name="highlight">
+              Texto destacado por defecto
+            </slot>
+          </div>
+          
+          <div class="text-4xl opacity-50 text-cyan-700 leading-none self-end -mb-2">"</div>
+        </blockquote>
       </div>
     )}
   </slot>
