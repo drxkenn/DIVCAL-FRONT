@@ -2,6 +2,7 @@
 // src/components/AboutSection.astro
 import AboutImage from "./AboutImage.astro";
 import AboutText from "./AboutText.astro";
+import nosotros from "../assets/img/NosotrosImagen.jpg"
 
 interface Props {
     // Configuración de imagen
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const {
-    imageSrc = "/assets/img/NosotrosImagen.jpg",
+    imageSrc = nosotros.src,
     imageAlt = "Equipo DIVCAL",
     imagePosition = "right",
     showImageOverlay = true,

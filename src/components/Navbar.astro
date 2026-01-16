@@ -1,5 +1,6 @@
 ---
 // src/components/Navbar.astro
+import logo from "../assets/img/logo-divcal.png"
 const navLinks = [
   { name: 'Inicio', href: '#inicio' },
   { name: 'Nosotros', href: '#nosotros' },
@@ -21,7 +22,7 @@ const navLinks = [
           <img 
             id="nav-logo"
             class="h-12 md:h-14 w-auto object-contain transition-all duration-300 brightness-0 invert" 
-            src="/img/logo-divcal.png" 
+            src={logo.src} 
             alt="Logo Divcal" 
           />
         </a>
