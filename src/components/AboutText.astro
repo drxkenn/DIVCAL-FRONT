@@ -9,6 +9,7 @@ interface Props {
   highlightColor?: ColorTheme;
   showDivider?: boolean;
   showQuote?: boolean;
+  highlightText?: string;
 }
 
 const { 
@@ -17,22 +18,23 @@ const {
   className = "",
   highlightColor = "sky",
   showDivider = true,
-  showQuote = true
+  showQuote = true,
+  highlightText = "Innovamos para crear soluciones que transforman el futuro"
 } = Astro.props;
 
-// Definir temas de color - USANDO LA MISMA VARIANTE PARA BARRAS Y TEXTO
+// Definir temas de color - MANTENIENDO CYAN-500 PARA EL TEXTO DE LA CITA
 const themes = {
   sky: {
-    text: "text-sky-500", // Cambiado de 600 a 500
+    text: "text-sky-500",
     bg: "bg-sky-500",
     border: "border-sky-300",
-    quote: "text-sky-700"
+    quote: "text-cyan-500" // CAMBIADO A cyan-500
   },
   celeste: {
-    text: "text-celeste-500", // Cambiado de 600 a 500
+    text: "text-celeste-500",
     bg: "bg-celeste-500",
     border: "border-celeste-300",
-    quote: "text-celeste-700"
+    quote: "text-cyan-500" // CAMBIADO A cyan-500
   }
 } as const;
 
@@ -40,19 +42,14 @@ const colors = themes[highlightColor];
 ---
 
 <div class={`space-y-6 lg:space-y-8 ${className}`}>
-  <!-- Subtítulo con barras decorativas - CENTRADO Y MEJORADO -->
+  <!-- Subtítulo con barras decorativas -->
   {showDivider && (
     <div class="mb-6 lg:mb-12">
       <div class="flex items-center justify-center gap-3 sm:gap-4 mb-4">
-        <!-- Primera barra -->
         <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full bg-cyan-500`}></div>
-        
-        <!-- Subtítulo con EXACTAMENTE el mismo color que las barras -->
         <span class="font-bold uppercase tracking-widest text-base sm:text-lg lg:text-xl xl:text-2xl text-center text-cyan-500" style="letter-spacing: 0.2em;">
           {subtitle}
         </span>
-        
-        <!-- Segunda barra -->
         <div class={`w-12 sm:w-16 lg:w-24 h-1.5 rounded-full bg-cyan-500`}></div>
       </div>
     </div>
@@ -72,36 +69,25 @@ const colors = themes[highlightColor];
   <!-- Contenido principal -->
   <div class="space-y-4 lg:space-y-6">
     <slot name="content" />
-    
-    <!-- Contenido de párrafos por defecto -->
     <div class="space-y-4">
       <slot />
     </div>
   </div>
 
-  <!-- Slot para quote personalizado o diseño por defecto -->
-  <slot name="quote">
-    <!-- Si showQuote es true, mostrar el diseño de cita por defecto -->
-    {showQuote && (
-      <div class="relative mt-8 lg:mt-10 pt-6 border-t ${colors.border}">
-        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <div class={`w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center`}>
-            <div class="w-3 h-3 bg-white rounded-full"></div>
-          </div>
+  <!-- Cita destacada -->
+  {showQuote && (
+    <div class="relative mt-8 lg:mt-10 pt-6 border-t ${colors.border}">
+      <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+        <div class={`w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center`}>
+          <div class="w-3 h-3 bg-white rounded-full"></div>
         </div>
-        
-        <blockquote class="flex justify-center gap-2 mx-auto w-fit max-w-3xl">
-          <div class="text-4xl opacity-50 text-cyan-700 leading-none -mt-2">"</div>
-          
-          <div class={`text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed italic text-center ${colors.quote}`}>
-            <slot name="highlight">
-              Texto destacado por defecto
-            </slot>
-          </div>
-          
-          <div class="text-4xl opacity-50 text-cyan-700 leading-none self-end -mb-2">"</div>
+      </div>
+      
+      <div class="flex justify-center mx-auto w-fit max-w-3xl">
+        <blockquote class={`text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed italic text-center text-cyan-500`}>
+          "{highlightText}"
         </blockquote>
       </div>
-    )}
-  </slot>
+    </div>
+  )}
 </div>
